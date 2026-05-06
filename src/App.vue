@@ -6,7 +6,7 @@ import IncomeExpenses from './components/IncomeExpenses.vue';
 import TransactionList from './components/TransactionList.vue';
 import AddTransaction from './components/AddTransaction.vue';
 
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const transactions = ref([
     { id: 1, text: 'Salary', amount: 5400 },
@@ -15,12 +15,18 @@ const transactions = ref([
     { id: 4, text: 'Commission', amount: 150 }
 ]);
 
+const total = computed(() => {
+    return transactions.value.reduce((accumulator, transaction) => {
+      return accumulator + transaction.amount;
+    }, 0);
+});
+
 </script>
 
 <template>
   <Header />
   <div class="container">
-    <Balance />
+    <Balance :total="total" />
     <IncomeExpenses />
     <TransactionList :transactions="transactions" />
     <AddTransaction />
