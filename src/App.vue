@@ -15,10 +15,31 @@ const transactions = ref([
     { id: 4, text: 'Commission', amount: 150 }
 ]);
 
+// Calculate total balance
 const total = computed(() => {
     return transactions.value.reduce((accumulator, transaction) => {
       return accumulator + transaction.amount;
     }, 0);
+});
+
+// Calculate total income
+const income = computed(() => {
+    return transactions.value
+    .filter((transaction) => transaction.amount > 0)
+    .reduce((accumulator, transaction) => {
+      return accumulator + transaction.amount;
+    }, 0)
+    .toFixed(2);
+});
+
+// Calculate total expenses
+const expenses = computed(() => {
+    return transactions.value
+    .filter((transaction) => transaction.amount < 0)
+    .reduce((accumulator, transaction) => {
+      return accumulator + transaction.amount;
+    }, 0)
+    .toFixed(2);
 });
 
 </script>
@@ -27,7 +48,7 @@ const total = computed(() => {
   <Header />
   <div class="container">
     <Balance :total="total" />
-    <IncomeExpenses />
+    <IncomeExpenses :income="income" :expenses="expenses" />
     <TransactionList :transactions="transactions" />
     <AddTransaction />
   </div>
