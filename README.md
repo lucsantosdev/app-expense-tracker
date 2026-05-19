@@ -2,6 +2,8 @@
 
 >A clean and practical expense tracking application built with Vue 3 and Vite.
 
+![App Preview](public/preview.png)
+
 Track income and expenses, keep an always-updated balance, and manage your transaction history with instant feedback in the UI.
 
 ## Overview 🧾
